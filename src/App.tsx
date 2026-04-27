@@ -71,17 +71,17 @@ export default function App() {
     try {
       const saved = localStorage.getItem('capoeira_shop');
       return saved ? JSON.parse(saved) : [
-        { id: '1', name: 'Berimbau T-Shirt', price: '25€', imageUrl: 'input_file_2.png', category: 'Apparel' },
-        { id: '2', name: 'Berimbau Completo', price: '80€', imageUrl: 'input_file_2.png', category: 'Instruments' },
-        { id: '3', name: 'Pandeiro', price: '45€', imageUrl: 'input_file_2.png', category: 'Instruments' },
-        { id: '4', name: 'Atabaque', price: '250€', imageUrl: 'input_file_2.png', category: 'Instruments' },
+        { id: '1', name: 'Berimbau T-Shirt', price: '25€', imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800', category: 'Apparel' },
+        { id: '2', name: 'Berimbau Completo', price: '80€', imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
+        { id: '3', name: 'Pandeiro', price: '45€', imageUrl: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
+        { id: '4', name: 'Atabaque', price: '250€', imageUrl: 'https://images.unsplash.com/photo-1514525253344-932402120092?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
       ];
     } catch {
       return [
-        { id: '1', name: 'Berimbau T-Shirt', price: '25€', imageUrl: 'input_file_2.png', category: 'Apparel' },
-        { id: '2', name: 'Berimbau Completo', price: '80€', imageUrl: 'input_file_2.png', category: 'Instruments' },
-        { id: '3', name: 'Pandeiro', price: '45€', imageUrl: 'input_file_2.png', category: 'Instruments' },
-        { id: '4', name: 'Atabaque', price: '250€', imageUrl: 'input_file_2.png', category: 'Instruments' },
+        { id: '1', name: 'Berimbau T-Shirt', price: '25€', imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800', category: 'Apparel' },
+        { id: '2', name: 'Berimbau Completo', price: '80€', imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
+        { id: '3', name: 'Pandeiro', price: '45€', imageUrl: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
+        { id: '4', name: 'Atabaque', price: '250€', imageUrl: 'https://images.unsplash.com/photo-1514525253344-932402120092?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
       ];
     }
   });
@@ -98,15 +98,15 @@ export default function App() {
   const [settings, setSettings] = useState(() => {
     const defaults = { 
       appName: 'CAPOEIRA WIEN',
-      logoUrl: 'input_file_2.png',
+      logoUrl: 'https://images.unsplash.com/photo-1590401441247-458cd09f19c4?auto=format&fit=crop&q=80&w=200',
       primaryColor: '#FF6A00', 
       secondaryColor: '#00D4FF',
       whatsappNumber: '+436601234567',
       instagramUrl: 'https://instagram.com/capoeirawien',
-      bgUrl: 'input_file_0.png',
+      bgUrl: 'https://images.unsplash.com/photo-1590401441247-458cd09f19c4?auto=format&fit=crop&q=80&w=2000',
       bgType: 'image',
-      bodyImageUrl: 'input_file_0.png',
-      historyImageUrl: 'input_file_0.png',
+      bodyImageUrl: 'https://images.unsplash.com/photo-1626248801379-51a073400f96?auto=format&fit=crop&q=80&w=1200',
+      historyImageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=1200',
       urgentBanner: {
         text: 'Training heute entfällt wegen Feiertag!',
         active: false,
