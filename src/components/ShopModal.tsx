@@ -18,12 +18,13 @@ interface ShopModalProps {
   allItems: ShopItem[];
   whatsappNumber: string;
   language: Language;
+  onSendWhatsApp: (message: string) => void;
 }
 
 const APELIDOS_MALE = ['Gato Preto', 'Pé de Vento', 'Saci', 'Curupira', 'Tubarão', 'Macaco', 'Relâmpago', 'Besouro', 'Canário', 'Lobo'];
 const APELIDOS_FEMALE = ['Borboleta', 'Estrela', 'Onça', 'Sereia', 'Arara', 'Formiga', 'Tempestade', 'Lua', 'Pérola', 'Fênix'];
 
-export const ShopModal: React.FC<ShopModalProps> = ({ isOpen, onClose, selectedItem, allItems, whatsappNumber, language }) => {
+export const ShopModal: React.FC<ShopModalProps> = ({ isOpen, onClose, selectedItem, allItems, whatsappNumber, language, onSendWhatsApp }) => {
   const t = translations[language];
   const [userName, setUserName] = useState('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -71,7 +72,7 @@ export const ShopModal: React.FC<ShopModalProps> = ({ isOpen, onClose, selectedI
   }, [cart, userName, t]);
 
   const handleSend = () => {
-    window.open(`https://wa.me/${whatsappNumber.replace(/\+/g, '')}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+    onSendWhatsApp(whatsappMessage);
     onClose();
   };
 

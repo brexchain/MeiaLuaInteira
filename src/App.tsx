@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { NewsCard } from './components/NewsCard';
 import { ShopModal } from './components/ShopModal';
+import { WhatsAppContactModal } from './components/WhatsAppContactModal';
 import { RodaProgress } from './components/RodaProgress';
 import { MOCK_NEWS, MOCK_TRAININGS } from './constants';
 import { summarizeNews } from './lib/gemini';
@@ -139,10 +140,13 @@ export default function App() {
   });
 
   const [isSummarizing, setIsSummarizing] = useState<string | null>(null);
-  const [contactTopic, setContactTopic] = useState<string>('trial');
 
   const [isShopModalOpen, setIsShopModalOpen] = useState(false);
   const [selectedShopItem, setSelectedShopItem] = useState<any>(null);
+
+  const [isWAContactModalOpen, setIsWAContactModalOpen] = useState(false);
+  const [waInitialTopicId, setWaInitialTopicId] = useState<string | undefined>(undefined);
+  const [waContext, setWaContext] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     localStorage.setItem('capoeira_lang', language);
@@ -208,8 +212,15 @@ export default function App() {
   };
 
   const handleWhatsApp = (trainingName: string) => {
-    const msg = encodeURIComponent(`${t.training.whatsappMsg}${trainingName}`);
-    window.open(`https://wa.me/${settings.whatsappNumber.replace(/\+/g, '')}?text=${msg}`, '_blank');
+    setWaContext(`${t.training.whatsappMsg}${trainingName}`);
+    setWaInitialTopicId('trial');
+    setIsWAContactModalOpen(true);
+  };
+
+  const handleGeneralWhatsApp = (topicId?: string, context?: string) => {
+    setWaInitialTopicId(topicId);
+    setWaContext(context);
+    setIsWAContactModalOpen(true);
   };
 
   const handleShopOrder = (item: any) => {
@@ -1324,30 +1335,19 @@ export default function App() {
               {t.contact.options.map((opt: any) => (
                 <button
                   key={opt.id}
-                  onClick={() => setContactTopic(opt.id)}
-                  className={`p-4 rounded-2xl border transition-all text-left flex items-center justify-between group ${
-                    contactTopic === opt.id 
-                      ? 'bg-brand-primary/10 border-brand-primary text-brand-primary' 
-                      : 'bg-white/5 border-white/10 text-[var(--text-muted)] hover:border-white/20'
-                  }`}
+                  onClick={() => handleGeneralWhatsApp(opt.id)}
+                  className={`p-4 rounded-2xl border transition-all text-left flex items-center justify-between group bg-white/5 border-white/10 text-[var(--text-muted)] hover:border-white/20 hover:bg-brand-primary/5`}
                 >
-                  <span className="text-sm font-bold">{opt.label}</span>
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
-                    contactTopic === opt.id ? 'border-brand-primary bg-brand-primary' : 'border-white/20'
-                  }`}>
-                    {contactTopic === opt.id && <div className="w-2 h-2 bg-brand-dark rounded-full" />}
+                  <span className="text-sm font-bold uppercase tracking-tight">{opt.label}</span>
+                  <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-brand-primary group-hover:text-brand-dark transition-all">
+                    <ChevronRight size={16} />
                   </div>
                 </button>
               ))}
             </div>
 
             <button 
-              onClick={() => {
-                const opt = t.contact.options.find((o: any) => o.id === contactTopic);
-                if (opt) {
-                  window.open(`https://wa.me/${settings.whatsappNumber.replace(/\+/g, '')}?text=${encodeURIComponent(opt.text)}`, '_blank');
-                }
-              }}
+              onClick={() => handleGeneralWhatsApp()}
               className="w-full py-4 bg-brand-primary text-brand-dark rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-brand-primary/20 hover:scale-[1.02] transition-transform active:scale-95 mt-4"
             >
               <MessageCircle size={20} />
@@ -1398,6 +1398,16 @@ export default function App() {
         allItems={shopItems}
         whatsappNumber={settings.whatsappNumber}
         language={language}
+        onSendWhatsApp={(msg) => handleGeneralWhatsApp('shop', msg)}
+      />
+
+      <WhatsAppContactModal 
+        isOpen={isWAContactModalOpen}
+        onClose={() => setIsWAContactModalOpen(false)}
+        language={language}
+        whatsappNumber={settings.whatsappNumber}
+        initialTopicId={waInitialTopicId}
+        context={waContext}
       />
 
       <RodaProgress language={language} translations={t} />
