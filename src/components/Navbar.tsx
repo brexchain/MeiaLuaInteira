@@ -11,11 +11,13 @@ interface NavbarProps {
   onAdminToggle: () => void;
   appName: string;
   logoUrl: string;
+  cartCount: number;
+  onCartToggle: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onNavigate, language, setLanguage, isAdmin, onAdminToggle, appName, logoUrl }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onNavigate, language, setLanguage, isAdmin, onAdminToggle, appName, logoUrl, cartCount, onCartToggle }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const t = translations[language];
+  const t = translations[language] || translations.DE;
   
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
@@ -45,6 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, language, setLanguag
     { name: t.nav.shop, href: '#shop', icon: ShoppingBag },
     { name: t.nav.belts, href: '#belts', icon: Award },
     { name: t.nav.history, href: '#history', icon: History },
+    { name: t.glossary.title, href: '#glossary', icon: History },
     { name: t.nav.music, href: '#music', icon: Drum },
     { name: t.nav.locations, href: '#locations', icon: MapPin },
     { name: t.nav.contact, href: '#contact', icon: Mail },
@@ -92,6 +95,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, language, setLanguag
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Cart Button */}
+          <button 
+            id="cart-btn"
+            onClick={onCartToggle}
+            className="flex items-center gap-2"
+          >
+            <ShoppingBag size={18} />
+            {cartCount > 0 && <span id="cart-count">{cartCount}</span>}
+          </button>
+
           {/* Language Switcher */}
           <button 
             onClick={() => setLanguage(language === 'DE' ? 'PT' : 'DE')}

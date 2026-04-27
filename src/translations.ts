@@ -51,6 +51,13 @@ export const translations = {
       groupDescription: 'Die Associação Meia Lua Inteira wurde 1990 von Mestre Birilo in Recife, Pernambuco, gegründet. Nur zwei Jahre später wurde der Verein Meia Lua Inteira in Wien ins Leben gerufen.',
       viennaHistory: '1997 kam Mestre Will nach Wien, um den Verein zu unterstützen. 1998 reiste Mestre Mula nach Wien und wurde bald von Mestre Régis unterstützt. 1999 folgte Mestre Carlinhos. Seither bietet der Verein Meia Lua Inteira Wien mehrmals wöchentlich Trainings für Anfänger*innen, Fortgeschrittene und Kinder an, die nunmehr von Mestre Carlinhos, Contramestre Marc und Graduados/Graduadas der Gruppe MLI Wien geleitet werden.',
       philosophy: 'Bei Meia Lua Inteira liegt der Fokus auf dem Stil Capoeira Contemporânea. Der Verein versteht die Capoeira als lebendige Sportart und integriert in das Training Erkenntnisse aus der Sport- und Trainingswissenschaft, sowie Elemente aus anderen Sportarten ohne die historischen Wurzeln zu vernachlässigen.',
+      timeline: [
+        { year: '1990', event: 'Fundação em Recife pelo Mestre Birilo' },
+        { year: '1992', event: 'Associação Meia Lua Inteira fundada em Viena' },
+        { year: '1997', event: 'Mestre Will chega a Viena para apoiar' },
+        { year: '1998', event: 'Mestre Mula viaja para Viena, apoiado pelo Mestre Régis' },
+        { year: '1999', event: 'Mestre Carlinhos segue para Viena' }
+      ],
       categories: [
         { id: 'origins', title: 'Ursprung', desc: 'Gegründet 1990 in Recife, Pernambuco von Mestre Birilo.' },
         { id: 'vienna', title: 'Wien', desc: 'Seit 1992 in Wien aktiv. 1997 kam Mestre Will, 1998 Mestre Mula und 1999 Mestre Carlinhos.' },
@@ -156,6 +163,66 @@ export const translations = {
         { id: 'other', label: 'Allgemeine Anfrage', text: 'Hallo, ich habe eine allgemeine Frage zu Capoeira Wien.' }
       ],
       sendBtn: 'WhatsApp Nachricht senden'
+    },
+    glossary: {
+      title: 'Capoeira Lexikon',
+      terms: [
+        {
+          id: 'volta_o_mundo',
+          name: 'Volta o Mundo',
+          meaning: 'Um die Welt gehen',
+          desc: 'Die Volta o Mundo wird benutzt, um das Spiel zu unterbrechen, Luft zu holen oder die Dynamik zu ändern. Die Spieler laufen im Gegenuhrzeigersinn im Kreis.',
+          tutorial: '1. Atme tief durch. 2. Verlasse die Mitte der Roda. 3. Laufe im Gegenuhrzeigersinn. 4. Reiche deinem Partner die Hand vor dem Wiedereintritt.'
+        },
+        {
+          id: 'bateria',
+          name: 'Bateria',
+          meaning: 'Das Orchester',
+          desc: 'Die Gruppe der Musiker, die die Instrumente spielen und den Rhythmus der Roda bestimmen.'
+        },
+        {
+          id: 'compra_o_jogo',
+          name: 'Compra o jogo',
+          meaning: 'Das Spiel kaufen',
+          desc: 'Wenn ein dritter Spieler in das laufende Spiel eintritt, indem er einen der beiden Spieler ablöst.'
+        },
+        {
+          id: 'ginga',
+          name: 'Ginga',
+          meaning: 'Schwingen',
+          desc: 'Die Grundbewegung der Capoeira, die alle anderen Bewegungen miteinander verbindet.'
+        },
+        {
+          id: 'chamada',
+          name: 'Chamada',
+          meaning: 'Der Ruf',
+          desc: 'Ein rituelles Innehalten im Capoeira Angola Spiel, bei dem ein Spieler den anderen zu einer Bewegung "herbeiruft".'
+        },
+        {
+          id: 'au',
+          name: 'Aú',
+          meaning: 'Radschlag',
+          desc: 'Das Capoeira-Rad, das oft zur Fortbewegung oder als Ausweichmanöver genutzt wird.'
+        },
+        {
+          id: 'roda',
+          name: 'Roda',
+          meaning: 'Der Kreis',
+          desc: 'Der menschliche Kreis, in dem Capoeira stattfindet. Er repräsentiert die Welt und den Zusammenhalt der Gemeinschaft.'
+        },
+        {
+          id: 'axe',
+          name: 'Axé',
+          meaning: 'Energie / Lebenskraft',
+          desc: 'Die positive Energie und der Geist, die durch Musik, Gesang und das Spiel in der Roda entstehen.'
+        },
+        {
+          id: 'mestre',
+          name: 'Mestre',
+          meaning: 'Meister',
+          desc: 'Die höchste Graduierungsstufe in der Capoeira. Jemand, der sein Leben der Lehre und Bewahrung dieser Kunst gewidmet hat.'
+        }
+      ]
     }
   },
   PT: {
@@ -206,6 +273,8 @@ export const translations = {
       title: 'História da Capoeira',
       groupTitle: 'Meia Lua Inteira',
       groupDescription: 'A Associação Meia Lua Inteira foi fundada em 1990 pelo Mestre Birilo em Recife, Pernambuco. Apenas dois anos depois, a associação Meia Lua Inteira foi fundada em Viena.',
+      viennaHistory: 'Em 1997 Mestre Will veio para Viena. Em 1998 Mestre Mula viajou para Viena e foi logo apoiado pelo Mestre Régis. Em 1999 Mestre Carlinhos seguiu. Desde então, a associação de Viena oferece treinos liderados pelo Mestre Carlinhos, Contramestre Marc e Graduados.',
+      philosophy: 'Na Meia Lua Inteira o foco está no estilo Capoeira Contemporânea. A associação entende a Capoeira como um esporte vivo e integra conhecimentos da ciência do esporte.',
       categories: [
         { id: 'origins', title: 'Origens', desc: 'Fundada em 1990 em Recife, Pernambuco pelo Mestre Birilo.' },
         { id: 'vienna', title: 'Viena', desc: 'Ativa em Viena desde 1992. Em 1997 chegou Mestre Will, em 1998 Mestre Mula e em 1999 Mestre Carlinhos.' },
@@ -218,7 +287,20 @@ export const translations = {
         { year: '1998', event: 'Mestre Mula viaja para Viena, apoiado pelo Mestre Régis' },
         { year: '1999', event: 'Mestre Carlinhos segue para Viena' }
       ],
-      focus: 'Desde então, a associação de Viena oferece treinos várias vezes por semana para iniciantes, avançados e crianças, liderados pelo Mestre Carlinhos, Contramestre Marc e Graduados.'
+      exchange: {
+        title: 'Intercâmbio internacional regular',
+        content: 'Nossa associação mantém laços estreitos com a comunidade global da Capoeira. Através de workshops regulares e viagens ao Brasil, garantimos um autêntico desenvolvimento da arte.'
+      },
+      worldwide: {
+        title: 'Presença Mundial',
+        content: 'O Grupo Meia Lua Inteira está representado em muitos países. Esta rede permite que nossos alunos treinem em quase qualquer lugar do mundo e vivenciem a diversidade da família Capoeira.',
+        locations: [
+          { city: 'Recife', info: 'Mestre Mula lidera o grupo no Brasil há muitos anos e também dá aulas online.' },
+          { city: 'Bologna', info: 'Mestre Cobra lidera o grupo Meia Lua Inteira em Bologna.' },
+          { city: 'Karlsruhe / Offenburg / Kehl', info: 'Mestre Tesourinha ensina em Karlsruhe e regiões próximas desde 2001.' },
+          { city: 'Freiburg', info: 'Professor Jens lidera o grupo e os treinos em Freiburg.' }
+        ]
+      }
     },
     team: {
       title: 'Nossos Treinadores',
@@ -305,6 +387,66 @@ export const translations = {
         { id: 'other', label: 'Consulta Geral', text: 'Olá, tenho uma pergunta geral sobre a Capoeira Wien.' }
       ],
       sendBtn: 'Enviar mensagem via WhatsApp'
+    },
+    glossary: {
+      title: 'Léxico da Capoeira',
+      terms: [
+        {
+          id: 'volta_o_mundo',
+          name: 'Volta o Mundo',
+          meaning: 'Dar a volta ao mundo',
+          desc: 'A Volta o Mundo é usada para interromper o jogo, recuperar o fôlego ou mudar a dinâmica. Os jogadores caminham em círculo no sentido anti-horário.',
+          tutorial: '1. Respire fundo. 2. Saia do centro da roda. 3. Caminhe no sentido anti-horário. 4. Estenda a mão ao parceiro antes de reentrar.'
+        },
+        {
+          id: 'bateria',
+          name: 'Bateria',
+          meaning: 'A orquestra',
+          desc: 'O grupo de músicos que tocam os instrumentos e determinam o ritmo da roda.'
+        },
+        {
+          id: 'compra_o_jogo',
+          name: 'Compra o jogo',
+          meaning: 'Comprar o jogo',
+          desc: 'Quando um terceiro jogador entra no jogo em andamento, substituindo um dos dois jogadores.'
+        },
+        {
+          id: 'ginga',
+          name: 'Ginga',
+          meaning: 'Balançar',
+          desc: 'O movimento básico da Capoeira que conecta todos os outros movimentos.'
+        },
+        {
+          id: 'chamada',
+          name: 'Chamada',
+          meaning: 'Chamada',
+          desc: 'Uma pausa ritual no jogo de Capoeira Angola, onde um jogador "chama" o outro para um movimento.'
+        },
+        {
+          id: 'au',
+          name: 'Aú',
+          meaning: 'Estrela',
+          desc: 'A estrela da Capoeira, frequentemente usada para locomoção ou como manobra de esquiva.'
+        },
+        {
+          id: 'roda',
+          name: 'Roda',
+          meaning: 'O Círculo',
+          desc: 'O círculo humano onde a Capoeira acontece, representando o mundo e a união da comunidade.'
+        },
+        {
+          id: 'axe',
+          name: 'Axé',
+          meaning: 'Energia / Força Vital',
+          desc: 'A energia positiva e o espírito que são criados pela música, pelo canto e pelo jogo na Roda.'
+        },
+        {
+          id: 'mestre',
+          name: 'Mestre',
+          meaning: 'Mestre',
+          desc: 'O mais alto nível de graduação na Capoeira, alguém que dedicou sua vida ao ensino e à preservação da arte.'
+        }
+      ]
     }
   }
 };

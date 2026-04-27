@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { NewsCard } from './components/NewsCard';
-import { ShopModal } from './components/ShopModal';
+import { CartSidebar } from './components/CartSidebar';
+import { CheckoutPage } from './components/CheckoutPage';
 import { WhatsAppContactModal } from './components/WhatsAppContactModal';
 import { RodaProgress } from './components/RodaProgress';
 import { MOCK_NEWS, MOCK_TRAININGS } from './constants';
 import { summarizeNews } from './lib/gemini';
-import { Sparkles, ChevronRight, Play, Trophy, Target, Zap, MapPin, MessageCircle, AlertCircle, Save, Trash2, Plus, X, ExternalLink, Palette, Home, ShoppingBag, Footprints, History, Shirt } from 'lucide-react';
+import { Sparkles, ChevronRight, Play, Trophy, Target, Zap, MapPin, MessageCircle, AlertCircle, Save, Trash2, Plus, X, ExternalLink, Palette, Home, ShoppingBag, Footprints, History, Shirt, Music, ShoppingCart } from 'lucide-react';
 import { Language, translations } from './translations';
 
 export default function App() {
   const [language, setLanguage] = useState<Language>(() => {
     try {
       const saved = localStorage.getItem('capoeira_lang');
-      return (saved as Language) || 'DE';
+      if (saved === 'DE' || saved === 'PT') return saved;
+      return 'DE';
     } catch {
       return 'DE';
     }
@@ -45,15 +47,15 @@ export default function App() {
     try {
       const saved = localStorage.getItem('capoeira_locations');
       return saved ? JSON.parse(saved) : [
-        { id: '1', name: 'Hauptakademie', addr: 'Kröllgasse 26, 1150 Wien', mapUrl: 'https://maps.google.com' },
-        { id: '2', name: 'WUK', addr: 'Währinger Straße 59, 1090 Wien', mapUrl: 'https://maps.google.com' },
-        { id: '3', name: 'Vorgartenstraße', addr: 'Vorgartenstraße 95, 1200 Wien', mapUrl: 'https://maps.google.com' },
+        { id: '1', name: 'Hauptakademie', addr: 'Kröllgasse 26, 1150 Wien (15. Bezirk)', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kröllgasse+26,+1150+Wien' },
+        { id: '2', name: 'WUK', addr: 'Währinger Straße 59, 1090 Wien (9. Bezirk)', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Währinger+Straße+59,+1090+Wien' },
+        { id: '3', name: 'Vorgartenstraße', addr: 'Vorgartenstraße 95, 1200 Wien (20. Bezirk)', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Vorgartenstraße+95-97,+1200+Wien' },
       ];
     } catch {
       return [
-        { id: '1', name: 'Hauptakademie', addr: 'Kröllgasse 26, 1150 Wien', mapUrl: 'https://maps.google.com' },
-        { id: '2', name: 'WUK', addr: 'Währinger Straße 59, 1090 Wien', mapUrl: 'https://maps.google.com' },
-        { id: '3', name: 'Vorgartenstraße', addr: 'Vorgartenstraße 95, 1200 Wien', mapUrl: 'https://maps.google.com' },
+        { id: '1', name: 'Hauptakademie', addr: 'Kröllgasse 26, 1150 Wien (15. Bezirk)', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kröllgasse+26,+1150+Wien' },
+        { id: '2', name: 'WUK', addr: 'Währinger Straße 59, 1090 Wien (9. Bezirk)', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Währinger+Straße+59,+1090+Wien' },
+        { id: '3', name: 'Vorgartenstraße', addr: 'Vorgartenstraße 95, 1200 Wien (20. Bezirk)', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Vorgartenstraße+95-97,+1200+Wien' },
       ];
     }
   });
@@ -68,21 +70,40 @@ export default function App() {
   });
 
   const [shopItems, setShopItems] = useState(() => {
+    const defaultItems = [
+      { id: '1', name: 'Berimbau T-Shirt', price: '25€', imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800', category: 'Apparel', icon: 'Shirt' },
+      { id: '2', name: 'Hoody MLI Wien', price: '45€', imageUrl: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800', category: 'Apparel', icon: 'Shirt' },
+      { id: '3', name: 'Abadá (Hose)', price: '35€', imageUrl: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&q=80&w=800', category: 'Apparel', icon: 'Footprints' },
+      { id: '4', name: 'Berimbau Completo', price: '80€', imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800', category: 'Instruments', icon: 'Zap' },
+      { id: '5', name: 'Pandeiro', price: '45€', imageUrl: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=800', category: 'Instruments', icon: 'Music' },
+      { id: '6', name: 'Atabaque', price: '250€', imageUrl: 'https://images.unsplash.com/photo-1514525253344-932402120092?auto=format&fit=crop&q=80&w=800', category: 'Instruments', icon: 'Trophy' },
+      { id: '7', name: 'Agogô', price: '35€', imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800', category: 'Instruments', icon: 'Zap' },
+      { id: '8', name: 'Reco-Reco', price: '30€', imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800', category: 'Instruments', icon: 'Zap' },
+      { id: '9', name: 'Corda (Kordel)', price: '15€', imageUrl: 'https://images.unsplash.com/photo-1590401441247-458cd09f19c4?auto=format&fit=crop&q=80&w=800', category: 'Equipment', icon: 'Target' },
+      { id: '10', name: 'Pandeiro Tasche', price: '25€', imageUrl: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=800', category: 'Equipment', icon: 'ShoppingBag' },
+      { id: '11', name: 'Berimbau Arame', price: '10€', imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800', category: 'Equipment', icon: 'Zap' },
+      { id: '12', name: 'Capoeira Training Bag', price: '40€', imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=800', category: 'Equipment', icon: 'ShoppingBag' },
+    ];
     try {
       const saved = localStorage.getItem('capoeira_shop');
-      return saved ? JSON.parse(saved) : [
-        { id: '1', name: 'Berimbau T-Shirt', price: '25€', imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800', category: 'Apparel' },
-        { id: '2', name: 'Berimbau Completo', price: '80€', imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
-        { id: '3', name: 'Pandeiro', price: '45€', imageUrl: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
-        { id: '4', name: 'Atabaque', price: '250€', imageUrl: 'https://images.unsplash.com/photo-1514525253344-932402120092?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
-      ];
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Merge defaults to ensure new items appear and icons are updated
+        const merged = Array.isArray(parsed) ? [...parsed] : [];
+        defaultItems.forEach(def => {
+          const existingIdx = merged.findIndex(i => i.id === def.id);
+          if (existingIdx === -1) {
+            merged.push(def);
+          } else {
+            // Update icon and other properties if they are missing or old in the saved version
+            merged[existingIdx] = { ...def, ...merged[existingIdx], icon: def.icon };
+          }
+        });
+        return merged;
+      }
+      return defaultItems;
     } catch {
-      return [
-        { id: '1', name: 'Berimbau T-Shirt', price: '25€', imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800', category: 'Apparel' },
-        { id: '2', name: 'Berimbau Completo', price: '80€', imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
-        { id: '3', name: 'Pandeiro', price: '45€', imageUrl: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
-        { id: '4', name: 'Atabaque', price: '250€', imageUrl: 'https://images.unsplash.com/photo-1514525253344-932402120092?auto=format&fit=crop&q=80&w=800', category: 'Instruments' },
-      ];
+      return defaultItems;
     }
   });
 
@@ -97,7 +118,7 @@ export default function App() {
 
   const [settings, setSettings] = useState(() => {
     const defaults = { 
-      appName: 'CAPOEIRA WIEN',
+      appName: 'Capoeira Wien MLI',
       logoUrl: 'https://images.unsplash.com/photo-1590401441247-458cd09f19c4?auto=format&fit=crop&q=80&w=200',
       primaryColor: '#FF6A00', 
       secondaryColor: '#00D4FF',
@@ -141,12 +162,61 @@ export default function App() {
 
   const [isSummarizing, setIsSummarizing] = useState<string | null>(null);
 
-  const [isShopModalOpen, setIsShopModalOpen] = useState(false);
-  const [selectedShopItem, setSelectedShopItem] = useState<any>(null);
-
   const [isWAContactModalOpen, setIsWAContactModalOpen] = useState(false);
   const [waInitialTopicId, setWaInitialTopicId] = useState<string | undefined>(undefined);
   const [waContext, setWaContext] = useState<string | undefined>(undefined);
+
+  const [cart, setCart] = useState<any[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+
+  const addToCart = (item: any) => {
+    setCart(prev => {
+      const existing = prev.find(i => i.id === item.id);
+      if (existing) {
+        return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
+      }
+      return [...prev, { ...item, quantity: 1 }];
+    });
+    setIsCartOpen(true);
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart(prev => prev.filter(i => i.id !== id));
+  };
+
+  const updateQty = (id: string, delta: number) => {
+    setCart(prev => prev.map(i => {
+      if (i.id === id) {
+        const newQty = Math.max(1, i.quantity + delta);
+        return { ...i, quantity: newQty };
+      }
+      return i;
+    }));
+  };
+
+  const getCartTotal = () => {
+    return cart.reduce((acc, item) => {
+      const priceVal = parseInt(item.price.replace(/[^\d]/g, '')) || 0;
+      return acc + (priceVal * item.quantity);
+    }, 0);
+  };
+
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    setIsCheckoutOpen(true);
+  };
+
+  const sendWhatsAppOrder = (formData: any) => {
+    const itemsList = cart.map(item => `${item.quantity}x ${item.name} (${item.price})`).join('\n');
+    const total = getCartTotal();
+    const message = `Halo! Ich möchte eine Bestellung aufgeben:\n\n${itemsList}\n\nGesamt: ${total}€\n\nName: ${formData.name}\nEmail: ${formData.email}\nNote: ${formData.note || 'Keine'}`;
+    
+    const whatsappUrl = `https://wa.me/${settings.whatsappNumber.replace(/[^\d]/g, '')}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    setCart([]);
+    setIsCheckoutOpen(false);
+  };
 
   useEffect(() => {
     localStorage.setItem('capoeira_lang', language);
@@ -223,11 +293,6 @@ export default function App() {
     setIsWAContactModalOpen(true);
   };
 
-  const handleShopOrder = (item: any) => {
-    setSelectedShopItem(item);
-    setIsShopModalOpen(true);
-  };
-
   return (
     <div className="min-h-screen pb-24">
       <Navbar 
@@ -238,6 +303,8 @@ export default function App() {
         onAdminToggle={() => setIsAdmin(!isAdmin)}
         appName={settings.appName}
         logoUrl={settings.logoUrl}
+        cartCount={cart.reduce((acc, i) => acc + i.quantity, 0)}
+        onCartToggle={() => setIsCartOpen(true)}
       />
       
       {/* Urgent Banner */}
@@ -753,7 +820,7 @@ export default function App() {
                     <Palette size={20} className="text-brand-primary" /> Shop Items
                   </h3>
                   <button 
-                    onClick={() => setShopItems([{ id: Date.now().toString(), name: 'New Item', price: '0€', imageUrl: 'input_file_2.png', category: 'General' }, ...shopItems])}
+                    onClick={() => setShopItems([{ id: Date.now().toString(), name: 'New Item', price: '0€', imageUrl: 'https://images.unsplash.com/photo-1590401441247-458cd09f19c4?auto=format&fit=crop&q=80&w=800', category: 'General', icon: 'ShoppingBag' }, ...shopItems])}
                     className="flex items-center gap-2 px-4 py-2 bg-brand-primary text-brand-dark rounded-xl text-xs font-bold uppercase tracking-widest"
                   >
                     <Plus size={16} /> Add Item
@@ -1015,10 +1082,20 @@ export default function App() {
                             <div className="text-[10px] text-[var(--text-dim)]">{session.category} • {session.coach}</div>
                           </td>
                           <td className="px-6 py-4">
-                            <div className="flex items-center gap-1 text-[10px] text-[var(--text-muted)]">
-                              <MapPin size={10} className="text-brand-primary" />
-                              {session.location.split(',')[0]}
-                            </div>
+                            <a 
+                              href={session.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(session.location)}`}
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex flex-col gap-0.5 group/loc transition-colors"
+                            >
+                              <div className="flex items-center gap-1 text-[10px] font-bold text-[var(--text-muted)] group-hover/loc:text-brand-primary">
+                                <MapPin size={10} className="text-brand-primary" />
+                                {session.location.split(',')[0]}
+                              </div>
+                              <div className="text-[9px] text-[var(--text-dim)] pl-3.5 leading-tight group-hover/loc:text-[var(--text-muted)]">
+                                {session.location.split(',').slice(1).join(',').trim()}
+                              </div>
+                            </a>
                           </td>
                           <td className="px-6 py-4">
                             <button 
@@ -1189,6 +1266,77 @@ export default function App() {
         </div>
       </section>
 
+      {/* Glossary Section */}
+      <section id="glossary" className="px-6 py-12 space-y-12 bg-white/[0.01]">
+        <div className="space-y-4">
+          <h2 className="text-4xl font-display font-bold tracking-tight uppercase leading-[0.9]">{t.glossary.title}</h2>
+          <div className="w-20 h-1.5 bg-brand-primary rounded-full" />
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {t.glossary.terms.map((term: any) => (
+            <motion.div 
+              key={term.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className={`glass-card p-8 rounded-[2rem] space-y-4 border transition-all group relative overflow-hidden ${
+                term.id === 'volta_o_mundo' 
+                  ? 'border-brand-primary/50 shadow-2xl shadow-brand-primary/10' 
+                  : 'border-white/5 hover:border-brand-primary/30'
+              }`}
+            >
+              {term.id === 'volta_o_mundo' && (
+                <div className="absolute -right-12 -top-12 w-32 h-32 bg-brand-primary/20 rounded-full blur-3xl group-hover:bg-brand-primary/30 transition-colors" />
+              )}
+              
+              <div className="flex items-start justify-between relative z-10">
+                <div className="space-y-1">
+                  <h3 className={`text-2xl font-bold transition-colors underline decoration-brand-primary/30 underline-offset-8 ${
+                    term.id === 'volta_o_mundo' ? 'text-brand-secondary' : 'text-brand-primary'
+                  }`}>
+                    {term.name}
+                  </h3>
+                  <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-widest font-black italic">{term.meaning}</p>
+                </div>
+                {term.tutorial && (
+                  <div className="flex items-center gap-2 px-3 py-1 bg-brand-primary text-brand-dark text-[10px] font-black rounded-full uppercase tracking-widest shadow-lg shadow-brand-primary/20 animate-pulse">
+                    <Sparkles size={12} /> Master This
+                  </div>
+                )}
+              </div>
+              
+              <p className="text-sm text-[var(--text-color)] leading-relaxed font-medium relative z-10">
+                {term.desc}
+              </p>
+
+              {term.tutorial && (
+                <motion.div 
+                  initial={{ x: -10 }}
+                  whileInView={{ x: 0 }}
+                  className="relative mt-8 p-6 bg-brand-primary/5 rounded-3xl border border-brand-primary/20 overflow-hidden group-hover:bg-brand-primary/10 transition-colors"
+                >
+                  <div className="absolute top-0 right-0 p-4 opacity-10">
+                    <Play size={64} className="group-hover:scale-110 transition-transform" />
+                  </div>
+                  <div className="relative z-10 space-y-3">
+                    <div className="flex items-center gap-2 text-xs font-black text-brand-primary uppercase tracking-widest">
+                      <Zap size={14} /> Dein Guide: "{term.name}"
+                    </div>
+                    <div className="text-xs text-[var(--text-muted)] whitespace-pre-line leading-loose bg-brand-dark/40 p-4 rounded-xl border border-white/5 backdrop-blur-sm">
+                      {term.tutorial}
+                    </div>
+                    <div className="pt-2 flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-secondary animate-ping" />
+                      <p className="text-[9px] text-brand-secondary font-bold uppercase tracking-widest">💡 Profi-Tipp: Atme im Takt des Berimbaus!</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* Belts Section */}
       <section id="belts" className="px-6 py-12 space-y-8">
         <div className="space-y-4">
@@ -1253,42 +1401,47 @@ export default function App() {
       </section>
 
       {/* Shop Section */}
-      <section id="shop" className="px-6 py-12 space-y-8">
-        <div className="space-y-4">
-          <h2 className="text-3xl font-display font-bold tracking-tight">{t.shop.title}</h2>
-          <div className="w-20 h-1.5 bg-brand-primary rounded-full" />
+      <section id="shop" className="px-6 py-12 space-y-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-4">
+            <h2 className="text-4xl font-display font-bold tracking-tight uppercase leading-[0.9]">{t.shop.title}</h2>
+            <div className="w-20 h-1.5 bg-brand-primary rounded-full" />
+          </div>
+          <p className="text-[var(--text-muted)] max-w-sm text-sm">
+            Entdecke unsere Auswahl an Instrumenten, Bekleidung und Ausrüstung direkt aus unserer Akademie.
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="shop-grid">
           {shopItems.map((item: any) => (
-            <motion.div 
-              key={item.id}
-              whileHover={{ y: -5 }}
-              className="glass-card rounded-3xl overflow-hidden flex flex-col"
-            >
-              <div className="aspect-square relative bg-white/5 flex items-center justify-center p-8">
-                {item.category.toLowerCase().includes('apparel') || item.name.toLowerCase().includes('shirt') ? (
-                  <Shirt size={48} className="text-brand-primary opacity-50" />
-                ) : item.category.toLowerCase().includes('instrument') ? (
-                  <Zap size={48} className="text-brand-primary opacity-50" />
-                ) : (
-                  <ShoppingBag size={48} className="text-brand-primary opacity-50" />
-                )}
-                <div className="absolute top-3 right-3 px-2 py-1 bg-brand-primary text-brand-dark text-[10px] font-bold rounded-lg shadow-lg">
-                  {item.price}
+            <div key={item.id} className="shop-card group">
+              <div className="shop-img">
+                <div className="shop-img-inner text-brand-primary">
+                  {item.icon === 'Shirt' ? <Shirt size={64} strokeWidth={1} /> : 
+                   item.icon === 'Footprints' ? <Footprints size={64} strokeWidth={1} /> :
+                   item.icon === 'Zap' ? <Zap size={64} strokeWidth={1} /> :
+                   item.icon === 'Music' ? <Music size={64} strokeWidth={1} /> :
+                   item.icon === 'Target' ? <Target size={64} strokeWidth={1} /> :
+                   item.icon === 'Trophy' ? <Trophy size={64} strokeWidth={1} /> : 
+                   item.icon === 'ShoppingBag' ? <ShoppingBag size={64} strokeWidth={1} /> : <ShoppingBag size={64} strokeWidth={1} />}
+                </div>
+                <div className="shop-badge">{item.category}</div>
+              </div>
+              <div className="shop-body">
+                <div className="shop-cat">{item.category}</div>
+                <h3 className="shop-name">{item.name}</h3>
+                <p className="shop-desc">Hochwertiges Equipment für dein Capoeira Training.</p>
+                <div className="shop-footer">
+                  <div className="shop-price">{item.price}</div>
+                  <button 
+                    onClick={() => addToCart(item)}
+                    className={`shop-add ${cart.find(i => i.id === item.id) ? 'added' : ''}`}
+                  >
+                    <Plus size={16} /> {cart.find(i => i.id === item.id) ? 'Hinzugefügt' : 'Kaufen'}
+                  </button>
                 </div>
               </div>
-              <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
-                <div className="font-bold text-sm leading-tight text-[var(--text-color)]">{item.name}</div>
-                <button 
-                  onClick={() => handleShopOrder(item)}
-                  className="w-full py-2 bg-brand-primary/10 text-brand-primary rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-brand-primary hover:text-brand-dark transition-all flex items-center justify-center gap-2"
-                >
-                  <MessageCircle size={14} />
-                  {t.shop.buy}
-                </button>
-              </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -1391,14 +1544,24 @@ export default function App() {
         ))}
       </div>
 
-      <ShopModal 
-        isOpen={isShopModalOpen}
-        onClose={() => setIsShopModalOpen(false)}
-        selectedItem={selectedShopItem}
-        allItems={shopItems}
-        whatsappNumber={settings.whatsappNumber}
+      <CartSidebar 
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        cart={cart}
+        onUpdateQty={updateQty}
+        onRemove={removeFromCart}
+        onCheckout={handleCheckout}
+        total={getCartTotal()}
         language={language}
-        onSendWhatsApp={(msg) => handleGeneralWhatsApp('shop', msg)}
+      />
+
+      <CheckoutPage 
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        cart={cart}
+        total={getCartTotal()}
+        onOrder={sendWhatsAppOrder}
+        language={language}
       />
 
       <WhatsAppContactModal 
@@ -1414,3 +1577,4 @@ export default function App() {
     </div>
   );
 }
+

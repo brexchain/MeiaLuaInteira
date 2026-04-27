@@ -20,6 +20,16 @@ export interface TrainingSession {
   price: string;
   imageUrl: string;
   location: string;
+  mapUrl?: string;
   day: string;
   note?: string;
+}
+
+export interface ShopItem {
+  id: string;
+  name: string;
+  price: string;
+  imageUrl: string;
+  category: string;
+  icon?: string;
 }
