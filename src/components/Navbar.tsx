@@ -107,11 +107,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, language, setLanguag
 
           {/* Language Switcher */}
           <button 
-            onClick={() => setLanguage(language === 'DE' ? 'PT' : 'DE')}
+            onClick={() => {
+              const langs: Language[] = ['DE', 'PT', 'EN'];
+              const nextIdx = (langs.indexOf(language) + 1) % langs.length;
+              setLanguage(langs[nextIdx]);
+            }}
             className="flex items-center gap-1 px-2 py-1 hover:bg-white/10 rounded-lg transition-colors text-[10px] font-bold"
           >
             <Globe size={14} />
-            {language}
+            {language === 'EN' ? '🇬🇧 EN' : language === 'PT' ? '🇧🇷 PT' : '🇩🇪 DE'}
           </button>
 
           <button 

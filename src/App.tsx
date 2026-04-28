@@ -14,8 +14,8 @@ import { Language, translations } from './translations';
 export default function App() {
   const [language, setLanguage] = useState<Language>(() => {
     try {
-      const saved = localStorage.getItem('capoeira_lang');
-      if (saved === 'DE' || saved === 'PT') return saved;
+      const saved = localStorage.getItem('capoeira_lang') as Language;
+      if (saved === 'DE' || saved === 'PT' || saved === 'EN') return saved;
       return 'DE';
     } catch {
       return 'DE';

@@ -1,4 +1,4 @@
-export type Language = 'DE' | 'PT';
+export type Language = 'DE' | 'PT' | 'EN';
 
 export const translations = {
   DE: {
@@ -445,6 +445,230 @@ export const translations = {
           name: 'Mestre',
           meaning: 'Mestre',
           desc: 'O mais alto nível de graduação na Capoeira, alguém que dedicou sua vida ao ensino e à preservação da arte.'
+        }
+      ]
+    }
+  },
+  EN: {
+    nav: {
+      home: 'Home',
+      training: 'Training',
+      news: 'News',
+      shop: 'Shop',
+      belts: 'Belts',
+      history: 'History',
+      music: 'Music',
+      locations: 'Locations',
+      contact: 'Contact',
+      admin: 'Admin'
+    },
+    hero: {
+      badge: 'Rhythm • Dance • Fight',
+      title: 'EXPERIENCE',
+      subtitle: 'A dynamic fusion of acrobatics, music, games and culture. Become part of our community.',
+      cta: 'Start Now'
+    },
+    stats: {
+      years: 'Years in Vienna',
+      locations: 'Locations',
+      classes: 'Classes'
+    },
+    news: {
+      title: 'News',
+      summarize: 'Summarize',
+      summarizing: 'Summarizing...'
+    },
+    training: {
+      title: 'Training Schedule',
+      overview: 'Overview',
+      all: 'All',
+      adults: 'Adults',
+      kids: 'Kids',
+      music: 'Music',
+      register: 'Register via WhatsApp',
+      whatsappMsg: 'Hello, I am interested in the training: ',
+      kids_overview: {
+        title: 'Kids Training Overview',
+        subtitle: 'Playful coordination, rhythm and community for children from 6 years.',
+        info: 'Capoeira promotes motor skills, musical education and discipline. Our courses provide a safe space for children to let off steam and learn new skills.'
+      }
+    },
+    history: {
+      title: 'About us & History',
+      groupTitle: 'Meia Lua Inteira',
+      groupDescription: 'The Associação Meia Lua Inteira was founded in 1990 by Mestre Birilo in Recife, Pernambuco. Only two years later, the Meia Lua Inteira association was founded in Vienna.',
+      viennaHistory: 'In 1997 Mestre Will came to Vienna to support the association. In 1998 Mestre Mula traveled to Vienna and was soon supported by Mestre Régis. In 1999 Mestre Carlinhos followed. Since then, the Meia Lua Inteira Vienna association has offered training several times a week for beginners, advanced and children, now led by Mestre Carlinhos, Contramestre Marc and Graduados of the MLI Vienna group.',
+      philosophy: 'At Meia Lua Inteira the focus is on the Capoeira Contemporânea style. The association understands Capoeira as a living sport and integrates findings from sports and training science, as well as elements from other sports without neglecting historical roots.',
+      timeline: [
+        { year: '1990', event: 'Founded in Recife by Mestre Birilo' },
+        { year: '1992', event: 'Associação Meia Lua Inteira founded in Vienna' },
+        { year: '1997', event: 'Mestre Will arriving to Vienna' },
+        { year: '1998', event: 'Mestre Mula travels to Vienna, supported by Mestre Régis' },
+        { year: '1999', event: 'Mestre Carlinhos arrives to Vienna' }
+      ],
+      categories: [
+        { id: 'origins', title: 'Origins', desc: 'Founded 1990 in Recife, Pernambuco by Mestre Birilo.' },
+        { id: 'vienna', title: 'Vienna', desc: 'Active in Vienna since 1992. In 1997 came Mestre Will, 1998 Mestre Mula and 1999 Mestre Carlinhos.' },
+        { id: 'philosophy', title: 'Philosophy', desc: 'Capoeira Contemporânea as a living sport with focus on training science.' }
+      ],
+      exchange: {
+        title: 'Regular international exchange',
+        content: 'In addition to regular training, the association organizes workshops to which well-known teachers and Mestres/Mestras from all over the world are invited. At the workshops, in addition to Capoeira, other elements of Afro-Brazilian culture such as rhythm and dance are taught.'
+      },
+      worldwide: {
+        title: 'MLI Worldwide',
+        content: 'Our group Meia Lua Inteira, founded in 1990 in Recife (Brazil) by Mestre Birilo, now exists in many different cities.',
+        locations: [
+          { city: 'Recife', info: 'Mestre Mula has been leading the group in Brazil for many years and also gives online lessons via Instagram.' },
+          { city: 'Bologna', info: 'Mestre Cobra leads the Meia Lua Inteira group in Bologna and offers regular training.' },
+          { city: 'Karlsruhe / Offenburg / Kehl', info: 'Mestre Tesourinha has lived in Karlsruhe since 2001 and teaches Capoeira there as well as in Offenburg and Kehl.' },
+          { city: 'Freiburg', info: 'Professor Jens leads the group and training in Freiburg.' }
+        ]
+      }
+    },
+    team: {
+      title: 'Our Trainers',
+      members: [
+        {
+          name: 'Mestre Carlinhos',
+          role: 'Mestre',
+          bio: 'Originally from Recife, Brazil. Co-founded Meia Lua Inteira in 1990. Since 1999 he lives and teaches in Vienna.'
+        },
+        {
+          name: 'Contra Mestre Marc',
+          role: 'Contra Mestre',
+          bio: 'Started in 1997 in Vienna. Teaches since 2005. Awarded Contra Mestre in 2023.'
+        },
+        {
+          name: 'Professor Matthieu',
+          role: 'Professor',
+          bio: 'Started in 2003. Teaches since 2013 adults and kids. Awarded Professor in 2025.'
+        },
+        {
+          name: 'Professor Algodão',
+          role: 'Professor',
+          bio: 'Originally from Recife, started in 2006. In 2015 moved to Austria. Awarded Professor in 2023.'
+        }
+      ]
+    },
+    music: {
+      title: 'Music in Capoeira',
+      categories: [
+        { id: 'instruments', title: 'Instruments', desc: 'Berimbau, Pandeiro, Atabaque, Agogô and Reco-Reco form the bateria.' },
+        { id: 'songs', title: 'Singing', desc: 'Ladainhas, Corridos and Louvações tell stories and guide the roda.' },
+        { id: 'rhythms', title: 'Rhythms', desc: 'Toques like Angola, São Bento Grande and Banguela determine the game.' }
+      ]
+    },
+    belts: {
+      title: 'Belt System',
+      subtitle: 'Graduations of the group Meia Lua Inteira',
+      description: 'In Capoeira there is no uniform graduation system. Every school has its own colors. Here is our group system:',
+      levels: [
+        { color: 'Crua (Raw White)', meaning: 'Beginner' },
+        { color: 'Crua-Amarela', meaning: 'Transition' },
+        { color: 'Amarela (Yellow)', meaning: 'Student' },
+        { color: 'Amarela-Laranja', meaning: 'Transition' },
+        { color: 'Laranja (Orange)', meaning: 'Advanced Student' },
+        { color: 'Laranja-Azul', meaning: 'Monitor' },
+        { color: 'Azul (Blue)', meaning: 'Graduado' },
+        { color: 'Azul-Verde', meaning: 'Transition' },
+        { color: 'Verde (Green)', meaning: 'Graduado' },
+        { color: 'Verde-Roxa', meaning: 'Transition' },
+        { color: 'Roxa (Purple)', meaning: 'Instrutor' },
+        { color: 'Roxa-Marrom', meaning: 'Transition' },
+        { color: 'Marrom (Brown)', meaning: 'Professor' },
+        { color: 'Marrom-Vermelha', meaning: 'Transition' },
+        { color: 'Vermelha (Red)', meaning: 'Mestre' }
+      ]
+    },
+    promo: {
+      urgent: 'URGENT'
+    },
+    shop: {
+      title: 'Shop',
+      order: 'WhatsApp Order',
+      whatsappMsg: 'Hello, I would like to order the following product: ',
+      tshirt: 'Berimbau T-Shirt',
+      instruments: 'Instruments',
+      price: 'Price',
+      buy: 'Buy',
+      checkout: 'Order Summary',
+      upsellTitle: 'You might also like:',
+      nameLabel: 'Your Name (Optional)',
+      funnyNameBtn: 'Roll funny Capoeira name',
+      male: 'Male',
+      female: 'Female',
+      preview: 'Message Preview:',
+      send: 'Order now via WhatsApp'
+    },
+    contact: {
+      whatsappTitle: 'WhatsApp Contact',
+      whatsappSubtitle: 'Choose a topic for your message',
+      options: [
+        { id: 'trial', label: 'Trial Training', text: 'Hello, I would like to schedule a trial training. When can I come?' },
+        { id: 'location', label: 'Locations', text: 'Hello, I have a question about your locations.' },
+        { id: 'shop', label: 'Shop/Equipment', text: 'Hello, I am interested in your equipment/shop items.' },
+        { id: 'other', label: 'General Inquiry', text: 'Hello, I have a general question about Capoeira Vienna.' }
+      ],
+      sendBtn: 'Send WhatsApp message'
+    },
+    glossary: {
+      title: 'Capoeira Glossary',
+      terms: [
+        {
+          id: 'volta_o_mundo',
+          name: 'Volta o Mundo',
+          meaning: 'Around the world',
+          desc: 'The Volta o Mundo is used to break the game, catch breath or change dynamic. Players walk in a circle counter-clockwise.',
+          tutorial: '1. Take a deep breath. 2. Leave the center. 3. Walk counter-clockwise. 4. Shake hands with partner before re-entry.'
+        },
+        {
+          id: 'bateria',
+          name: 'Bateria',
+          meaning: 'The Orchestra',
+          desc: 'The group of musicians playing instruments and setting the rhythm of the Roda.'
+        },
+        {
+          id: 'compra_o_jogo',
+          name: 'Compra o jogo',
+          meaning: 'Buy the game',
+          desc: 'When a third player enters a running game by taking place of one of the two players.'
+        },
+        {
+          id: 'ginga',
+          name: 'Ginga',
+          meaning: 'Swinging',
+          desc: 'The basic movement of Capoeira that connects all other movements.'
+        },
+        {
+          id: 'chamada',
+          name: 'Chamada',
+          meaning: 'The Call',
+          desc: 'A ritual pause in Capoeira Angola game where one player "calls" the other for a movement.'
+        },
+        {
+          id: 'au',
+          name: 'Aú',
+          meaning: 'Cartwheel',
+          desc: 'The Capoeira cartwheel, often used for movement or dodging.'
+        },
+        {
+          id: 'roda',
+          name: 'Roda',
+          meaning: 'The Circle',
+          desc: 'The human circle where Capoeira takes place, representing the world and community unity.'
+        },
+        {
+          id: 'axe',
+          name: 'Axé',
+          meaning: 'Energy / Life Force',
+          desc: 'The positive energy and spirit created through music, song and the game in the Roda.'
+        },
+        {
+          id: 'mestre',
+          name: 'Mestre',
+          meaning: 'Master',
+          desc: 'The highest graduation level in Capoeira. Someone who dedicated their life to the teaching and preservation of the art.'
         }
       ]
     }
